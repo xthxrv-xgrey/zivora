@@ -27,7 +27,7 @@ router.get("/", getProducts);
 
 router.get("/:id", productIdValidator, getProduct);
 
-router.patch(
+router.put(
   "/:id",
   authenticate,
   productIdValidator,

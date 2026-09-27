@@ -19,7 +19,7 @@ export function createProduct(formData) {
 }
 
 export function updateProduct(id, data) {
-  return api.patch(`/products/${id}`, data).then((res) => res.data.data.product);
+  return api.put(`/products/${id}`, data).then((res) => res.data.data.product);
 }
 
 export function deleteProduct(id) {

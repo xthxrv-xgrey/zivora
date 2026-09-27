@@ -3,12 +3,6 @@ import ApiError from "../../core/ApiError.js";
 import ApiResponse from "../../core/ApiResponse.js";
 import UserModel from "../../models/user.model.js";
 import { hashPassword } from "../../utils/password.utils.js";
-import {
-  generateAccessToken,
-  generateRefreshToken,
-  hashRefreshToken,
-} from "../../utils/token.utils.js";
-import { cookieConfig } from "../../utils/cookie.util.js";
 
 export const registerController = asyncHandler(async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
@@ -35,22 +29,6 @@ export const registerController = asyncHandler(async (req, res) => {
     passwordHash,
   });
 
-  const userId = user._id.toString();
-
-  // Generate tokens
-  const accessToken = generateAccessToken(userId);
-  const refreshToken = generateRefreshToken(userId);
-
-  // Hash refresh token before storing it
-  const refreshTokenHash = hashRefreshToken(refreshToken);
-
-  await UserModel.findByIdAndUpdate(user._id, {
-    refreshTokenHash,
-  });
-
-  // Set refresh token as HTTP-only cookie
-  res.cookie("refreshToken", refreshToken, cookieConfig);
-
   // Remove sensitive fields from response
   const safeUser = {
     id: user._id,
@@ -60,10 +38,7 @@ export const registerController = asyncHandler(async (req, res) => {
 
   const response = new ApiResponse(
     201,
-    {
-      user: safeUser,
-      accessToken,
-    },
+    { user: safeUser },
     "Registration Successful!",
   );
 
