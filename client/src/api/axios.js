@@ -54,7 +54,7 @@ api.interceptors.request.use((config) => {
 // promise and retries once it resolves.
 let refreshPromise = null;
 
-async function refreshAccessToken() {
+export async function refreshAccessToken() {
   if (!refreshPromise) {
     refreshPromise = refreshClient
       .post("/auth/refresh-token")

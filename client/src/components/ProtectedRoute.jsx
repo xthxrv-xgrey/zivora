@@ -1,9 +1,10 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/authStore";
 import Loader from "./Loader";
 
 export default function ProtectedRoute({ children }) {
-  const { isAuthenticated, initializing } = useAuth();
+  const isAuthenticated = useAuthStore((state) => Boolean(state.user));
+  const initializing = useAuthStore((state) => state.initializing);
   const location = useLocation();
 
   if (initializing) {

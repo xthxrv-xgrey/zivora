@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/authStore";
 
 export default function Footer() {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useAuthStore((state) => Boolean(state.user));
 
   return (
     <footer className="border-t border-charcoal/10 bg-ivory">

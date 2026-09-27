@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Plus, User } from "lucide-react";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/authStore";
 
 export default function Navbar() {
-  const { user, isAuthenticated, logout } = useAuth();
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => Boolean(state.user));
+  const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
 

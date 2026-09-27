@@ -18,10 +18,3 @@ export function fetchCurrentUser() {
   return api.get("/auth/me").then((res) => res.data.data.user);
 }
 
-// Used only during app bootstrap to silently try to establish a session
-// from the refresh-token cookie. Uses the shared axios instance so a 401
-// here is handled by the normal interceptor (and simply fails, which is
-// fine — it just means the visitor isn't logged in).
-export function refreshAccessTokenRequest() {
-  return api.post("/auth/refresh-token").then((res) => res.data.data.accessToken);
-}

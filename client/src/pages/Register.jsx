@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/authStore";
 import {
   validateConfirmPassword,
   validateEmail,
@@ -14,7 +14,7 @@ import Button from "../components/ui/Button";
 import { AuthPanel } from "./Login";
 
 export default function Register() {
-  const { register } = useAuth();
+  const register = useAuthStore((state) => state.register);
   const navigate = useNavigate();
 
   const [form, setForm] = useState({

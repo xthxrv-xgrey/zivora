@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/authStore";
 import { validateEmail, validatePassword, extractApiErrorMessage } from "../utils/validators";
 import { Field } from "../components/ui/Input";
 import Button from "../components/ui/Button";
 
 export default function Login() {
-  const { login } = useAuth();
+  const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";

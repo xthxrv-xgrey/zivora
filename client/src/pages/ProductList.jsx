@@ -8,10 +8,10 @@ import EmptyState from "../components/EmptyState";
 import { ProductGridSkeleton } from "../components/ui/Skeleton";
 import Button from "../components/ui/Button";
 import SectionHeading from "../components/ui/SectionHeading";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/authStore";
 
 export default function ProductList() {
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useAuthStore((state) => Boolean(state.user));
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

@@ -8,12 +8,12 @@ import { ProductDetailSkeleton } from "../components/ui/Skeleton";
 import ConfirmDialog from "../components/ConfirmDialog";
 import Button from "../components/ui/Button";
 import Badge from "../components/ui/Badge";
-import { useAuth } from "../context/AuthContext";
+import { useAuthStore } from "../store/authStore";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const isAuthenticated = useAuthStore((state) => Boolean(state.user));
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
