@@ -1,5 +1,6 @@
 export const cookieConfig = {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
-  sameSite: "strict",
+  sameSite: isProduction ? "none" : "lax",
+  maxAge: parseDurationToMs(env.REFRESH_TOKEN_EXPIRY),
 };

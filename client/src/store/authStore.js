@@ -30,13 +30,15 @@ export const useAuthStore = create(
 
         initializationPromise = (async () => {
           try {
-            // Using the exported refreshAccessToken from axios ensures we share the same
-            // promise lock as the interceptor, avoiding race conditions and duplicate calls.
+            console.log("[authStore] Starting initializeAuth");
             const token = await refreshAccessToken();
+            console.log("[authStore] refreshAccessToken success, token:", !!token);
             setAccessToken(token);
             const me = await fetchCurrentUser();
+            console.log("[authStore] fetchCurrentUser success, user:", !!me);
             set({ user: me });
           } catch (error) {
+            console.error("[authStore] initializeAuth failed:", error);
             get().clearSession();
           } finally {
             set({ initializing: false });
