@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Zivora design tokens */
+  --color-ivory: #f6f3ee;
+  --color-ivory-deep: #ece6db;
+  --color-charcoal: #151311;
+  --color-charcoal-soft: #231f1b;
+  --color-stone: #847c70;
+  --color-clay: #b5502f;
+
+  --space-section: clamp(4rem, 8vw, 8rem);
+  --ease-expensive: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-ivory font-sans text-charcoal antialiased;
+  font-feature-settings: "ss01" 1;
+}
+
+::selection {
+  background: var(--color-charcoal);
+  color: var(--color-ivory);
+}
+
+/* Thin, quiet scrollbar — present, never decorative */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ivory-deep);
+  border-radius: 999px;
+  border: 2.5px solid var(--color-ivory);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-stone);
+}
+
+@layer components {
+  /* Section eyebrow — small tracked-out label above headings */
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-widest2 text-stone-500;
+  }
+
+  .h-display {
+    @apply font-display font-medium leading-[0.95] tracking-tightest text-charcoal;
+  }
+
+  .container-zivora {
+    @apply mx-auto w-full max-w-8xl px-6 md:px-10 xl:px-16;
+  }
+
+  .link-underline {
+    @apply relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-[width] after:duration-500 after:ease-expensive hover:after:w-full;
+  }
+
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-charcoal/70 focus-visible:ring-offset-2 focus-visible:ring-offset-ivory;
+  }
+}
+
+/* Scroll-reveal primitive, toggled by useScrollReveal via IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.8s var(--ease-expensive), transform 0.8s var(--ease-expensive);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
