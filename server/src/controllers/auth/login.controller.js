@@ -3,7 +3,7 @@ import ApiError from "../../core/ApiError.js";
 import ApiResponse from "../../core/ApiResponse.js";
 import UserModel from "../../models/user.model.js";
 
-import { verifPassword } from "../../utils/password.utils.js";
+import { verifyPassword } from "../../utils/password.utils.js";
 import {
   generateAccessToken,
   generateRefreshToken,
@@ -22,7 +22,7 @@ export const loginController = asyncHandler(async (req, res) => {
   }
 
   // Verify password
-  const isPasswordValid = await verifPassword(password, user.passwordHash);
+  const isPasswordValid = await verifyPassword(password, user.passwordHash);
 
   if (!isPasswordValid) {
     throw new ApiError(401, "Invalid email or password.");
